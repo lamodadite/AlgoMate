@@ -1,9 +1,11 @@
 package jongmin.AlgoMate.service.member;
 
 import jongmin.AlgoMate.dto.member.MemberJoinDto;
+import jongmin.AlgoMate.dto.member.MemberJoinResponseDto;
 import jongmin.AlgoMate.model.member.Member;
 import jongmin.AlgoMate.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -11,8 +13,10 @@ import org.springframework.stereotype.Service;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
-    public Long addMember(MemberJoinDto memberJoinDto) {
+
+    public MemberJoinResponseDto addMember(MemberJoinDto memberJoinDto) {
 
         Member member = Member.builder()
                 .email(memberJoinDto.getEmail())
@@ -20,9 +24,11 @@ public class MemberService {
                 .name(memberJoinDto.getName())
                 .build();
 
+        member.hashPassword(passwordEncoder);
+
         memberRepository.save(member);
 
-        return member.getId();
+        return MemberJoinResponseDto.of(member);
     }
 
 }

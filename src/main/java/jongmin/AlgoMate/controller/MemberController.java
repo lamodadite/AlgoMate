@@ -1,13 +1,12 @@
 package jongmin.AlgoMate.controller;
 
-import com.fasterxml.jackson.databind.annotation.JsonValueInstantiator;
 import jongmin.AlgoMate.dto.common.ResponseDto;
 import jongmin.AlgoMate.dto.member.MemberJoinDto;
+import jongmin.AlgoMate.dto.member.MemberJoinResponseDto;
 import jongmin.AlgoMate.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +24,10 @@ public class MemberController {
 
     @PostMapping("/join")
     public ResponseEntity<?> join(@RequestBody @Valid
-                                      MemberJoinDto memberJoinDto) {
+                                  MemberJoinDto memberJoinDto) {
 
-        Long memberId = memberService.addMember(memberJoinDto);
+        MemberJoinResponseDto member = memberService.addMember(memberJoinDto);
 
-        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, memberId));
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, member));
     }
 }
