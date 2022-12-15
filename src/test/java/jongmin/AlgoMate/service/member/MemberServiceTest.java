@@ -31,4 +31,5 @@ class MemberServiceTest {
         Assertions.assertThat(memberCnt).isEqualTo(1);
     }
 
+
 }
