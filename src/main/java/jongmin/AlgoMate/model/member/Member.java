@@ -29,12 +29,8 @@ public class Member extends BaseEntity {
     @Column(unique = true)
     private String password;
 
-    public void hashPassword(BCryptPasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(this.password);
-    }
+    @Column
+    private String role; // 현재는 ROLE_USER 하나만 존재
 
-    public boolean checkPassword(String plainPassword,
-                                 PasswordEncoder passwordEncoder) {
-        return passwordEncoder.matches(plainPassword, this.password);
-    }
+
 }

@@ -20,15 +20,13 @@ public class MemberService {
 
         Member member = Member.builder()
                 .email(memberJoinDto.getEmail())
-                .password(memberJoinDto.getPassword())
+                .password(passwordEncoder.encode(memberJoinDto.getPassword()))
                 .name(memberJoinDto.getName())
+                .role("ROLE_USER")
                 .build();
-
-        member.hashPassword(passwordEncoder);
 
         memberRepository.save(member);
 
         return MemberJoinResponseDto.of(member);
     }
-
 }

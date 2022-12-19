@@ -1,4 +1,4 @@
-package jongmin.AlgoMate.config;
+package jongmin.AlgoMate.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +13,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeRequests()
+                .anyRequest().permitAll()
+                .and()
+                .formLogin()
+                .loginProcessingUrl("/login") // /login 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행해줌
+                .defaultSuccessUrl("/")
+                .usernameParameter("email");
 
         http.csrf().disable();
         http.cors().disable();
-        http.formLogin().disable();
         http.headers().frameOptions().sameOrigin();
 
         return http.build();
