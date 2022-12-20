@@ -10,7 +10,6 @@ package jongmin.AlgoMate.config.auth;
 
 import jongmin.AlgoMate.model.member.Member;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -26,14 +25,9 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> collect = new ArrayList<>();
-        collect.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return member.getRole();
-            }
-        });
-        return collect;
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(() -> member.getRole());
+        return authorities;
     }
 
     @Override
@@ -44,6 +38,10 @@ public class PrincipalDetails implements UserDetails {
     @Override
     public String getUsername() {
         return member.getName();
+    }
+
+    public Long getUserId() {
+        return member.getId();
     }
 
     @Override
