@@ -20,11 +20,10 @@ public class ResponseDto<T> {
         this.data = data;
     }
 
-    public static <T> ResponseDto<T> of(HttpStatus httpStatus, T data) {
+    public static <T> ResponseDto<T> of(HttpStatus httpStatus, String message, T data) {
         int status = Optional.ofNullable(httpStatus)
                 .orElse(HttpStatus.OK)
                 .value();
-
-        return new ResponseDto<>(status, data);
+        return new ResponseDto<>(status, message, data);
     }
 }

@@ -1,5 +1,6 @@
 package jongmin.AlgoMate.controller;
 
+import jongmin.AlgoMate.common.Message;
 import jongmin.AlgoMate.dto.common.ResponseDto;
 import jongmin.AlgoMate.dto.problem.ProblemRequestDto;
 import jongmin.AlgoMate.model.member.Member;
@@ -30,7 +31,7 @@ public class ProblemController {
         Long problemId = problemService.registerProblem(member, problemRequestDto);
 
         return ResponseEntity.ok().body(
-                ResponseDto.of(HttpStatus.OK, problemId));
+                ResponseDto.of(HttpStatus.OK, Message.SUCCESS_REGISTER_PROBLEM ,problemId));
     }
 
     @AuthCheck
