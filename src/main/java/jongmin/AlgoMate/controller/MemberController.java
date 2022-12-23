@@ -1,5 +1,6 @@
 package jongmin.AlgoMate.controller;
 
+import jongmin.AlgoMate.common.Message;
 import jongmin.AlgoMate.dto.common.ResponseDto;
 import jongmin.AlgoMate.dto.member.MemberJoinDto;
 import jongmin.AlgoMate.dto.member.MemberJoinResponseDto;
@@ -25,7 +26,7 @@ public class MemberController {
 
         MemberJoinResponseDto member = memberService.addMember(memberJoinDto);
 
-        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, member));
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, Message.SUCCESS_REGISTER_MEMBER, member));
     }
 
 }
