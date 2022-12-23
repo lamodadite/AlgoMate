@@ -3,6 +3,7 @@ package jongmin.AlgoMate.controller;
 import jongmin.AlgoMate.common.Message;
 import jongmin.AlgoMate.dto.common.ResponseDto;
 import jongmin.AlgoMate.dto.problem.ProblemRequestDto;
+import jongmin.AlgoMate.dto.problem.ProblemResponseDto;
 import jongmin.AlgoMate.model.member.Member;
 import jongmin.AlgoMate.service.problem.ProblemService;
 import jongmin.AlgoMate.util.auth.AuthCheck;
@@ -35,8 +36,15 @@ public class ProblemController {
     }
 
     @AuthCheck
-    @GetMapping("/test")
-    public String test() {
-        return "test";
+    @GetMapping("/{problemId}")
+    public ResponseEntity<?> getProblem(@PathVariable Long problemId) {
+        Member member = MemberContext.currentMember.get();
+
+        ProblemResponseDto responseDto = problemService.getProblemById(problemId);
+
+
+        return ResponseEntity.ok().body(
+                ResponseDto.of(HttpStatus.OK, Message.SUCCESS_GET_PROBLEM, responseDto)
+        );
     }
 }

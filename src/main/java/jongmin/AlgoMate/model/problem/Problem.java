@@ -31,6 +31,8 @@ public class Problem extends BaseEntity {
 
     private int difficulty;
 
+    private String content;
+
     private LocalDateTime notificationDate;
 
     @OneToMany(mappedBy = "problem")
