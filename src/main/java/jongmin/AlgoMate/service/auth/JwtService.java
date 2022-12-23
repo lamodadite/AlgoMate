@@ -1,8 +1,6 @@
 package jongmin.AlgoMate.service.auth;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.DefaultJwtSignatureValidator;
 import jongmin.AlgoMate.config.auth.JwtProperties;
 import jongmin.AlgoMate.dto.member.JwtPayload;
@@ -11,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
 import java.util.Base64;
 
 @RequiredArgsConstructor
@@ -38,8 +35,6 @@ public class JwtService {
         if (!validator.isValid(tokenWithoutSignature, signature)) {
             throw new Exception("Could not verify JWT token integrity!");
         }
-
-        byte[] decode = decoder.decode(chunks[1]);
 
         return jwtPayloadMapper.StringTojwtPayload(payload);
     }
