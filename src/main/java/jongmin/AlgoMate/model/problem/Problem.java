@@ -1,5 +1,8 @@
 package jongmin.AlgoMate.model.problem;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jongmin.AlgoMate.model.BaseEntity;
 import jongmin.AlgoMate.model.member.Member;
 import lombok.*;
@@ -21,6 +24,7 @@ public class Problem extends BaseEntity {
     @Column(name = "problem_id", updatable = false)
     private Long id;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "member_id", updatable = false)
     private Member writer;
@@ -35,7 +39,8 @@ public class Problem extends BaseEntity {
 
     private LocalDateTime notificationDate;
 
-    @OneToMany(mappedBy = "problem")
+    @JsonIgnore
+    @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProblemTag> tagList = new ArrayList<>();
 
     public void setTagList(List<ProblemTag> tagList) {

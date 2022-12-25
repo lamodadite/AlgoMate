@@ -49,6 +49,7 @@ public class ProblemService {
         return problem.getId();
     }
 
+    @Transactional(readOnly = true)
     public ProblemResponseDto getProblemById(Long problemId) {
         Problem problem = problemRepository.findById(problemId)
                 .orElseThrow(() -> new ProblemNotFoundException("해당하는 문제 게시물이 없습니다"));
